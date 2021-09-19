@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>Search Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/profie_report" method ="/ShowProfile">
+  <button type="submit" name="Show Pandas Profile Report" value="Show Pandas Profile Report"> Show Pandas Profile Report </button>
+</form>
+<h3 style="text-align: left">Columns dropped from ai4i2020.csv due to multi colinearity are UDI, Product ID, Type, Process temperature [K], Rotational speed [rpm], Machine failure.</h3>
+<h2 style="text-align: left">Enter the details below to predict Air Temperature[k]</h2>
+<form action="/data" method = "POST">
+    <p>Rotational_speed[rpm] <input type = "number" name = "Rotational_speed" /></p>
+    <p>Torque [Nm] <input type = "number" name = "Torque" /></p>
+    <p>Tool wear [min] <input type = "number" name = "Tool_wear" /></p>
+    <p>Machine_failure <input type = "number" name = "Machine_failure" /></p>
+    <p>TWF <input type = "number" name = "TWF" /></p>
+    <p>HDF <input type = "number" name = "HDF" /></p>
+    <p>PWF <input type = "number" name = "PWF" /></p>
+    <p>OSF <input type = "number" name = "OSF" /></p>
+    <p>RNF <input type = "number" name = "RNF" /></p>
+<!--    <p><input type = "submit" value = "Submit" /></p>-->
+    <br/>
+  <button type="submit" name="Predict_Air_Temp_using_Linear_Regr" value="Predict_Air_Temp_using_Linear_Regr"> Predict_Air_Temp_using_Linear_Regr </button>
+    <br/>
+    <br/>
+  <button type="submit" name="Predict_Air_Temp_using_Lasso_Linear_Regr" value="Predict_Air_Temp_using_Lasso_Linear_Regr"> Predict_Air_Temp_using_Lasso_Linear_Regr </button>
+    <br/>
+    <br/>
+  <button type="submit" name="Predict_Air_Temp_using_Ridge_Linear_Regr" value="Predict_Air_Temp_using_Ridge_Linear_Regr"> Predict_Air_Temp_using_Ridge_Linear_Regr </button>
+    <br/>
+    <br/>
+  <button type="submit" name="Predict_Air_Temp_using_Elasticnet_Linear_Regr" value="Predict_Air_Temp_using_Elasticnet_Linear_Regr"> Predict_Air_Temp_using_Elasticnet_Linear_Regr </button>
+
+</form>
+{% endblock %}

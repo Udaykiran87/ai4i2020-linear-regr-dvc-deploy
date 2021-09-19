@@ -1,0 +1,73 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src/load_data.py --config=params.yaml
+    deps:
+    - path: data_given/ai4i2020.csv
+      md5: 399512e3f0c18aa56d036f7d78fe96b1
+      size: 522048
+    - path: src/get_data.py
+      md5: 17e356957c75f6ecabccd6d3b5924c95
+      size: 670
+    - path: src/load_data.py
+      md5: 8f0fbe82c6473ad354dbbf1a579633a8
+      size: 756
+    outs:
+    - path: data/raw/ai4i2020.csv
+      md5: e5433d5962343f0a7c6c98b6df249d51
+      size: 385001
+  split_data:
+    cmd: python src/split_data.py --config=params.yaml
+    deps:
+    - path: data/preprocessed/ai4i2020.csv
+      md5: 2bbebd325408a795c6adefcef895bbf7
+      size: 324977
+    - path: src/split_data.py
+      md5: 7ea5d097524e6ba4003a498653678d11
+      size: 1100
+    outs:
+    - path: data/processed/test_ai4i2020.csv
+      md5: 3eac71f58aae83d465202d5d0d23a08c
+      size: 65048
+    - path: data/processed/train_ai4i2020.csv
+      md5: b88e9fd3f780c3361493567dc2b51c5e
+      size: 260037
+  train_and_evaluate:
+    cmd: python src/train_and_evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/test_ai4i2020.csv
+      md5: 3eac71f58aae83d465202d5d0d23a08c
+      size: 65048
+    - path: data/processed/train_ai4i2020.csv
+      md5: b88e9fd3f780c3361493567dc2b51c5e
+      size: 260037
+    - path: src/train_and_evaluate.py
+      md5: abb7e69fc8b31f8c07afeac315ea7da9
+      size: 3101
+    params:
+      params.yaml:
+        estimators.ElasticNet.params.alpha: 0.9
+        estimators.ElasticNet.params.l1_ratio: 0.4
+    outs:
+    - path: report/params.json
+      md5: a4aab0167612f21a6085dd05cfafdbf6
+      size: 44
+    - path: report/scores.json
+      md5: 7526ed07bd4b89b0cc559386bd2acd70
+      size: 101
+    - path: saved_models/model.joblib
+      md5: f54b4e63634f53290d5fe5e930bdf9e9
+      size: 782
+  preprocess_data:
+    cmd: python src/preprocess_data.py --config=params.yaml
+    deps:
+    - path: data/raw/ai4i2020.csv
+      md5: e5433d5962343f0a7c6c98b6df249d51
+      size: 385001
+    - path: src/preprocess_data.py
+      md5: a3d5a134372d090beac182986f552171
+      size: 2638
+    outs:
+    - path: data/preprocessed/ai4i2020.csv
+      md5: 2bbebd325408a795c6adefcef895bbf7
+      size: 324977
