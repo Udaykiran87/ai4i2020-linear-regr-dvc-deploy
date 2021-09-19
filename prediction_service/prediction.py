@@ -45,6 +45,8 @@ def validate_input(dict_request):
     def _validate_cols(col):
         schema = get_schema()
         actual_cols = schema.keys()
+        print(col)
+        print(actual_cols)
         if col not in actual_cols:
             raise NotInCols
 
