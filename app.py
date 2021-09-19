@@ -2,10 +2,6 @@ import joblib
 from flask import Flask, render_template, request, jsonify
 import os
 import yaml
-import pandas as pd
-import matplotlib.pyplot as plt
-import pickle
-from pandas_profiling import ProfileReport
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from statsmodels.stats.outliers_influence import variance_inflation_factor
@@ -63,14 +59,9 @@ def data():
         # prediction = saved_model.predict([[rotational_speed,torque,tool_wear,machine_failure,twf,hdf,pwf,osf,rnf]])
         if request.form.get("Predict_Air_Temp_using_Elasticnet_Linear_Regr"):
             data = dict(request.form)
-            print(data)
-            # del data["Predict_Air_Temp_using_Elasticnet_Linear_Regr"]
             data.pop("Predict_Air_Temp_using_Elasticnet_Linear_Regr")
             data = [list(map(float, data.values()))]
-            print(data)
             response = predict(data)
-            print(response)
-        # print('prediction is', prediction)
         return render_template('results.html', response=response)
 
     if request.json:
