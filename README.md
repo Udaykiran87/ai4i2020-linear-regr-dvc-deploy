@@ -1,4 +1,4 @@
-"# ai4i2020-linear-regr-dvc-deploy" 
+"# ai4i2020-linear-regr-dvc-deploy for demo" 
 
 create env 
 
